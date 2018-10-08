@@ -195,4 +195,8 @@ Then we'll need to set these attributes in our application template:
 ```
 
 Now we have two different GameTiles for our games.
-We've started
+We have our components with attributes that pass in data to be shown.
+But, right now we are just passing in attributes directly to our components.
+Instead, let's look at how we can work with JavaScript to get data into our components.
+
+## Creating a List Component
