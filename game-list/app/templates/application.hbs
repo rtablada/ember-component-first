@@ -1,3 +1,15 @@
-<h2 id="title">Welcome to Ember</h2>
+<h1 class="title" style="color: red" onclick="alert('hello world')">Hello World</h1>
 
-{{outlet}}
+<GameTile
+  @title="Overwatch"
+  @year="2016"
+  @imageUrl="https://images.igdb.com/igdb/image/upload/t_cover_big/fen88hu0vhcf3k3owkxd.jpg"
+  @description="A good first person shooter"
+/>
+
+<GameTile
+  @title="Mario Party Ultimate"
+  @year="2018"
+  @imageUrl="https://images.igdb.com/igdb/image/upload/t_cover_big/rvadchpkfknklxmckmmk.jpg"
+  @description="A great way to compete with friends!"
+/>
