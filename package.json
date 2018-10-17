@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "workspaces": [
+    "game-list",
+    "server"
+  ],
+  "scripts": {
+    "start": "server/index.js"
+  }
+}
