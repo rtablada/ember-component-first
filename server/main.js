@@ -50,6 +50,22 @@ const getPopularGames = async () => {
   return await result.json();
 };
 
+const searchGames = async (search) => {
+  const result = await fetch(
+    `https://api-endpoint.igdb.com/games/?search=${search}` +
+    `&fields=name,first_release_date,cover,esrb,summary` +
+    `&order=popularity:desc&filter[esrb][exists]=true&limit=20`,
+    {
+      headers: {
+        "user-key": config.apiKey,
+        Accept: "application/json"
+      }
+    }
+  );
+
+  return await result.json();
+};
+
 const app = new Koa();
 
 app.keys = [config.secretKey];
@@ -80,6 +96,21 @@ router.get("/games", async ctx => {
 
     ctx.body = { message: error.message };
   }
+});
+
+router.get('/games/search', async ctx => {
+  const query = ctx.query.search;
+
+  if (!query) {
+    ctx.status = 400;
+    return ctx.body = {
+      message: 'You must provide a "search" query parameter'
+    };
+  }
+
+  const results = await searchGames(query);
+
+  ctx.body = results.map(a => replaceImages(a));
 });
 
 app.use(router.allowedMethods());

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "index.js"
+  },
   "dependencies": {
     "@koa/cors": "^2.2.2",
     "dotenv": "^6.1.0",
