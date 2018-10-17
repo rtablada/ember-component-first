@@ -2470,9 +2470,9 @@ ember-cli-version-checker@^2.0.0, ember-cli-version-checker@^2.1.0, ember-cli-ve
     resolve "^1.3.3"
     semver "^5.3.0"
 
-ember-cli@~3.5.0-beta.2:
-  version "3.5.0-beta.2"
-  resolved "https://registry.yarnpkg.com/ember-cli/-/ember-cli-3.5.0-beta.2.tgz#a31297590616a4672c9b1be1e3f0769baef3e5ae"
+ember-cli@~3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/ember-cli/-/ember-cli-3.5.0.tgz#978031042611008dce82c79226b8b677d325072c"
   dependencies:
     amd-name-resolver "^1.2.0"
     babel-plugin-transform-es2015-modules-amd "^6.24.1"
@@ -2572,9 +2572,9 @@ ember-compatibility-helpers@^1.0.0, ember-compatibility-helpers@^1.1.1:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
-ember-data@~3.5.0-beta.1:
-  version "3.5.0-beta.3"
-  resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-3.5.0-beta.3.tgz#29d573da06139fc781b969ea2fba67b17e436aaa"
+ember-data@~3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-3.5.0.tgz#1cd22312112fd3a961248090eac850d513f844cf"
   dependencies:
     "@ember/ordered-set" "^2.0.0"
     babel-plugin-feature-flags "^0.3.1"
@@ -2676,9 +2676,9 @@ ember-router-generator@^1.2.3:
   dependencies:
     recast "^0.11.3"
 
-ember-source@~3.5.0-beta.1:
-  version "3.5.0-beta.4"
-  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-3.5.0-beta.4.tgz#827aebce2f1b67abc69467d890af2fc68289af3c"
+ember-source@~3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-3.5.0.tgz#2322e393125684e1e043d0eedad8fd79c6de78a8"
   dependencies:
     broccoli-funnel "^2.0.1"
     broccoli-merge-trees "^2.0.0"

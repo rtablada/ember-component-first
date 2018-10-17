@@ -200,3 +200,274 @@ But, right now we are just passing in attributes directly to our components.
 Instead, let's look at how we can work with JavaScript to get data into our components.
 
 ## Creating a List Component
+
+To start, let's copty the `GameTile` components from `application.hbs` and let's replace them with a new `GameList` component.
+
+```hbs
+<GameList />
+```
+
+Then let's create the new `game-list.hbs` file for the new `GameList` component we just called.
+Here, we'll paste in our `GameTiles` from before:
+
+```hbs
+<GameTile
+  @title="Overwatch"
+  @year="2016"
+  @imageUrl="https://images.igdb.com/igdb/image/upload/t_cover_big/fen88hu0vhcf3k3owkxd.jpg"
+  @description="A good first person shooter"
+/>
+
+<GameTile
+  @title="Mario Party Ultimate"
+  @year="2018"
+  @imageUrl="https://images.igdb.com/igdb/image/upload/t_cover_big/rvadchpkfknklxmckmmk.jpg"
+  @description="A great way to compete with friends!"
+/>
+```
+
+Back in the browser this is working, but we've only moved around our code into a new component.
+Instead let's start using JavaScript to create the data needed for our different GameTiles.
+
+So far we've used only templates for our components.
+If you've used React functional components or JSX only components you can think of Ember template only components in a very similar way.
+But, there are times where we need to work with data and JavaScript logic, for this we need to use a class component along with our template.
+
+Similar to the naming convention for our templates, if we want to add JavaScript for our component, we need to make sure our names match.
+So, let's create a file called `game-list.js` in our `app/components` directory.
+
+Here we need to export a component class so we'll start by importing `Component` from `@ember/component` and then exporting a new class that extends from this.
+This should feel pretty standard for a JavaScript class.
+
+Now before we jump in and load our list of games, let's look at how this JavaScript class file interacts with our template.
+Let's create a new property on our class and set it to the string `Super Smash Bros`.
+
+```js
+import Component from '@ember/component';
+
+export default class extends Component {
+  title="Super Smash Bros"
+}
+```
+
+Then, in our game-list template, let's try to access this value.
+Before we were accessing component attributes and used the `@` symbol, but now we specifically want to work with the `title` property directly set on our component.
+So, to do this we still need to use `{{}}` but now we'll just print out the value of `title` and let's place that in an `h2` to make it easier to see.
+
+```hbs
+<h2>{{title}}</h2>
+
+<GameTile
+  @title="Overwatch"
+  @year="2016"
+  @imageUrl="https://images.igdb.com/igdb/image/upload/t_cover_big/fen88hu0vhcf3k3owkxd.jpg"
+  @description="A good first person shooter"
+/>
+
+<GameTile
+  @title="Mario Party Ultimate"
+  @year="2018"
+  @imageUrl="https://images.igdb.com/igdb/image/upload/t_cover_big/rvadchpkfknklxmckmmk.jpg"
+  @description="A great way to compete with friends!"
+/>
+```
+
+Now we can see that our title value in our component JavaScript is being shown.
+But, we're not limited to class properties and we can work with any JavaScript value (not just strings).
+So, let's go back to our component class and add a constructor.
+In our constructor we need to call `super` so that the default constructor is run.
+
+Then, let's set a property called `games` on this and let's add in an array of objects for each of our games:
+
+```js
+import Component from '@ember/component';
+
+export default class extends Component {
+  constructor() {
+    super(...arguments);
+
+    this.games = [
+      {
+        title: "Overwatch",
+        year: "2016",
+        imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/fen88hu0vhcf3k3owkxd.jpg",
+        description: "A good first person shooter",
+      },
+      {
+        title: "Mario Party Ultimate",
+        year: "2018",
+        imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/rvadchpkfknklxmckmmk.jpg",
+        description: "A great way to compete with friends!",
+      }
+    ];
+  }
+}
+```
+
+Now we need to work with this array of data.
+To do this, we'll use a helper in our template to loop over our data.
+Handlebars helpers are just JavaScript functions that we can run in our templates (there are a few provided out of the box with Ember and you can always create your own too!).
+Now to loop through our data, we'll use the `each` helper which is sort of like `Array.map` in JavaScript when used with JSX.
+
+Here we'll loop through all of our games then we'll use this `as |game|` syntax.
+The `as ||` syntax in Handlebars is like passing in a callback where the variables in the pipes are the arguments for our callback.
+Now in this each loop, let's first print out a `GameTile` for Overwatch just to make sure things work, and we can see there are 2 tiles on our screen.
+Next, let's replace the attributes for our `GameTile` with values from our `game` variable in the each loop.
+
+```hbs
+{{#each games as |game|}}
+  <GameTile
+    @title={{game.title}}
+    @year={{game.year}}
+    @imageUrl={{game.imageUrl}}
+    @description={{game.description}}
+  />
+{{/each}}
+```
+
+Now we are showing our list of games using an array of data from JavaScript.
+But, we're not writing the best Ember code right now.
+
+In our component we're using `this.games =` to change the value of `games` in our component.
+This is ok since we're doing this work in the constructor before the Component is actually rendered.
+Every time we create a component, Ember is tracking the values used in templates for changes.
+This is how it knows when to re-render without us having to do any extra work.
+To see why our `=` is a problem with tracking, let's start working on loading our data a bit more asynchronously.
+
+In our component, let's create a `window.setTimeout` and let's set the value of `this.games` for our component after 100ms.
+Before this `setTimeout` let's first start games as an empty array.
+
+```js
+constructor() {
+  super(...arguments);
+  this.games = [];
+
+  window.setTimeout(() => {
+    this.games = [
+      {
+        title: "Overwatch",
+        year: "2016",
+        imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/fen88hu0vhcf3k3owkxd.jpg",
+        description: "A good first person shooter",
+      },
+      {
+        title: "Mario Party Ultimate",
+        year: "2018",
+        imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/rvadchpkfknklxmckmmk.jpg",
+        description: "A great way to compete with friends!",
+      }
+    ];
+  }, 100);
+}
+```
+
+> **Note** it's important that we use an arrow function here so that `this` in our callback still refers to our GameList component.
+
+If we save this and look at our app, we now have no games showing up.
+And, if we check the console we can see the error:
+
+> You must use set() to set the `games` property (of <game-list@component:game-list::ember173>)
+
+This is because the `games` property in our component was being watched for changes, so it's marked as immutable unless we call `set` so that we don't accidentally make a change that Ember can't track.
+This is simliar to needing to call `setState` in React, except we only need to set the properties that change, and Ember is smart and only recalculates parts of our app that use those properties.
+
+Back in the constructor, let's use `this.set` to set the `games` property to our new array.
+
+```js
+constructor() {
+  super(...arguments);
+  this.set('games', []);
+
+  window.setTimeout(() => {
+    this.set('games', [
+      {
+        title: "Overwatch",
+        year: "2016",
+        imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/fen88hu0vhcf3k3owkxd.jpg",
+        description: "A good first person shooter",
+      },
+      {
+        title: "Mario Party Ultimate",
+        year: "2018",
+        imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/rvadchpkfknklxmckmmk.jpg",
+        description: "A great way to compete with friends!",
+      }
+    ]);
+  }, 100);
+}
+```
+
+Alright, now we can work with JavaScript data in our components, what about loading data from an API or server?
+
+# Loading States and Async Values
+
+So far, we've actually done most of the work needed to display the list of games from our server.
+Now, we just need to actually load data using `fetch` or a library like Axios.
+Before we do that though, let's look at how we can show a loading state in our GameList.
+
+In the constructor, let's cut out the code for our timeout and then create a new async function called `loadData`.
+In this `loadData` function let's first set a property called `loading` to `true`.
+Then let's `await timeout(1000)` and then we'll set `loading` to `false` and we'll set `games` to our array of data.
+
+```js
+async loadData() {
+  this.set('loading', true);
+  await timeout(1000);
+  this.set('loading', false);
+  this.set('games', [
+    {
+      title: "Overwatch",
+      year: "2016",
+      imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/fen88hu0vhcf3k3owkxd.jpg",
+      description: "A good first person shooter",
+    },
+    {
+      title: "Mario Party Ultimate",
+      year: "2018",
+      imageUrl: "https://images.igdb.com/igdb/image/upload/t_cover_big/rvadchpkfknklxmckmmk.jpg",
+      description: "A great way to compete with friends!",
+    }
+  ]);
+}
+```
+
+Then let's define `timeout` with this small function that wraps `window.setTimeout` in a promise:
+
+```js
+const timeout = (t) => new Promise((r) => window.setTimeout(r, t));
+```
+
+And finally, let's call `loadData` in our `constructor`:
+
+```js
+constructor() {
+  super(...arguments);
+  this.set('games', []);
+
+  this.loadData();
+}
+```
+
+Let's look at this in the browser, if we refresh the page, we'll get our list of games after a second.
+But, what about the loading state?
+
+In our template, we can use the `if` helper and `else` helper to check the value of `loading` in our component:
+
+```hbs
+{{#if loading}}
+  <h2 style="animation: spin 4s infinite linear; display: inline-block;">Loading</h2>
+{{else}}
+  {{#each games as |game|}}
+    <GameTile
+      @title={{game.title}}
+      @year={{game.year}}
+      @imageUrl={{game.imageUrl}}
+      @description={{game.description}}
+    />
+  {{/each}}
+{{/if}}
+```
+
+Now we have our loading state, let's load some real data from a server!
+
+# Loading Data with Fetch
