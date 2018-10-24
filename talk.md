@@ -91,7 +91,7 @@ There are some new features coming to Ember that help to add namespacing, local 
 Let's create a new `GameTile` component that will have a game image, game title, game description, and release year.
 We'll start by actually calling this new `GameTile` component from our application template:
 
-```html
+```hbs
 <GameTile />
 ```
 
@@ -255,7 +255,7 @@ Before we were accessing component attributes and used the `@` symbol, but now w
 So, to do this we still need to use `{{}}` but now we'll just print out the value of `title` and let's place that in an `h2` to make it easier to see.
 
 ```hbs
-<h2>{{title}}</h2>
+<h2>{{this.title}}</h2>
 
 <GameTile
   @title="Overwatch"
@@ -315,7 +315,7 @@ Now in this each loop, let's first print out a `GameTile` for Overwatch just to 
 Next, let's replace the attributes for our `GameTile` with values from our `game` variable in the each loop.
 
 ```hbs
-{{#each games as |game|}}
+{{#each this.games as |game|}}
   <GameTile
     @title={{game.title}}
     @year={{game.year}}
@@ -454,10 +454,10 @@ But, what about the loading state?
 In our template, we can use the `if` helper and `else` helper to check the value of `loading` in our component:
 
 ```hbs
-{{#if loading}}
+{{#if this.loading}}
   <h2 style="animation: spin 4s infinite linear; display: inline-block;">Loading</h2>
 {{else}}
-  {{#each games as |game|}}
+  {{#each this.games as |game|}}
     <GameTile
       @title={{game.title}}
       @year={{game.year}}

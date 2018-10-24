@@ -1,7 +1,7 @@
-{{#if loading}}
+{{#if this.loading}}
   <h2 style="animation: spin 4s infinite linear; display: inline-block;">Loading</h2>
 {{else}}
-  {{#each games as |game|}}
+  {{#each this.games as |game|}}
     <GameTile
       @title={{game.title}}
       @year={{game.year}}
