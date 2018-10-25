@@ -1,7 +1,10 @@
 import Component from '@ember/component';
 import { action } from '@ember-decorators/object';
+import { service } from '@ember-decorators/service';
 
 export default class extends Component {
+  @service('games-store') gamesStore;
+
   results = null;
   isLoading = true;
 
@@ -15,11 +18,7 @@ export default class extends Component {
     }
 
     this.set('isLoading', true);
-
-    let req = await fetch(`http://localhost:3000/games/search?search=${searchTerm}`);
-    let data = await req.json();
-
-    this.set('results', data);
+    this.set('results', await this.gamesStore.search(searchTerm));
     this.set('isLoading', false);
   }
 
@@ -32,17 +31,8 @@ export default class extends Component {
 
   @action
   async addFavorite(game) {
-    let req = await fetch(`http://localhost:3000/games/add`, {
-      body: JSON.stringify({ id: game.id }),
-      credentials: 'include',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    });
+    await this.gamesStore.addFavorite(game.id);
 
-    await req.json();
     this.clear();
   }
 }

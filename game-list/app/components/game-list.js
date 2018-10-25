@@ -13,7 +13,7 @@ export default class extends Component {
   async loadData() {
     this.set('loading', true);
 
-    await this.gamesStore.loadData();
+    await this.gamesStore.loadAllGames();
 
     this.set('loading', false);
   }
