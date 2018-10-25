@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
 import GameTile from './GameTile';
+import GameStore from './contexts/game-store';
 
 class GameList extends Component {
+  static contextType = GameStore
+
   constructor() {
     super(...arguments);
     this.state = {
       games: [],
       isLoading: false
     };
+  }
 
+  componentWillMount() {
     this.loadData();
   }
 
   async loadData() {
-    this.state.isLoading = true;
+    this.setState({ ...this.state, isLoading: true });
 
-    const req = await fetch('http://game-list-api.herokuapp.com/games', {
-      credentials: 'include'
-    });
-    const games = await req.json();
+    await this.context.loadData();
 
-    this.setState({
-      isLoading: false,
-      games: games.map(g => ({
-        title: g.name,
-        rating: g.esrb.rating,
-        imageUrl: g.cover.url,
-        description: g.summary,
-        id: g.id
-      }))
-    });
+    this.setState({ ...this.state, isLoading: false });
   }
 
-
   render() {
-    let {isLoading, games} = this.state;
+    let { isLoading } = this.state;
+    let { games } = this.context.state;
 
     if (isLoading) {
       return (
@@ -43,6 +36,7 @@ class GameList extends Component {
     } else {
       return games.map((game => (
         <GameTile
+          key={game.id}
           title={game.title}
           year={game.year}
           imageUrl={game.imageUrl}

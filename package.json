@@ -2,7 +2,8 @@
   "private": true,
   "workspaces": [
     "game-list",
-    "server"
+    "server",
+    "react-example"
   ],
   "scripts": {
     "start": "node ./server/index.js"
