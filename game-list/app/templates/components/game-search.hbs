@@ -1,0 +1,20 @@
+<div class="game-search">
+  <form class="search-bar" onsubmit={{action "searchForGames"}}>
+    <input placeholder="Search For More Games" type="text" value={{this.searchTerm}} oninput={{action (mut this.searchTerm) value="target.value"}}>
+
+    <button type="submit">Search</button>
+  </form>
+
+  {{#if this.isLoading}}
+
+  {{else}}
+    <ul class="search-results">
+      {{#each this.results as |result|}}
+        <li>
+          <img src={{result.cover.url}} role="presentation" alt>
+          <h4>{{result.name}}</h4>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</div>

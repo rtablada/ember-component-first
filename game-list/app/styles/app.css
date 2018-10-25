@@ -63,7 +63,7 @@ body {
   display: flex;
   flex-wrap: wrap;
 
-  margin: -1rem;
+  margin: 0 -1rem;
 }
 
 .grid__item {
@@ -114,4 +114,51 @@ body {
 
 .game-tile-large p {
 
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar > * + * {
+  margin-left: 0.5rem;
+}
+
+.search-bar input {
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+  border: none;
+  padding: 0.2rem 1rem;
+  flex-grow: 1;
+}
+
+.search-results {
+  overflow: auto;
+  max-height: 600px;
+}
+
+.search-results > * + * {
+  margin-top: 0.5rem;
+}
+
+.search-results li {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 0.4rem;
+  padding: 0.5rem 1rem;
+}
+
+
+.search-results li h4 {
+  flex-grow: 1;
+}
+
+.search-results img {
+  max-width: 100px;
+}
+
+.search-results li > * + * {
+  margin-left: 1rem;
 }
