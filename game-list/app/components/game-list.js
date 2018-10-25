@@ -13,7 +13,7 @@ export default class extends Component {
   async loadData() {
     this.set('loading', true);
 
-    const req = await fetch('https://game-list-api.herokuapp.com/games', {
+    const req = await fetch('http://localhost:3000/games', {
       credentials: 'include'
     });
     const games = await req.json();

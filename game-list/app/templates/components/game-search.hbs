@@ -5,16 +5,19 @@
     <button type="submit">Search</button>
   </form>
 
-  {{#if this.isLoading}}
-
-  {{else}}
+  {{#if this.results}}
     <ul class="search-results">
       {{#each this.results as |result|}}
         <li>
           <img src={{result.cover.url}} role="presentation" alt>
           <h4>{{result.name}}</h4>
+          <button onclick={{action "addFavorite" result}}>Add To Wish List</button>
         </li>
       {{/each}}
+
+      <li>
+        <button class="clear" onclick={{action "clear"}}>Clear Results</button>
+      </li>
     </ul>
   {{/if}}
 </div>

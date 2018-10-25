@@ -31,6 +31,7 @@ const recentGamesUrl = () => {
 
   return (
     `games/?fields=name,first_release_date,cover,esrb,summary` +
+    `&filter[cover][exists]=true` +
     `&order=popularity:desc` +
     `&filter[created_at][not_eq]=1511784798211&filter[esrb][exists]=true&limit=20`
   );
@@ -54,6 +55,7 @@ const searchGames = async (search) => {
   const result = await fetch(
     `https://api-endpoint.igdb.com/games/?search=${search}` +
     `&fields=name,first_release_date,cover,esrb,summary` +
+    `&filter[cover][exists]=true` +
     `&order=popularity:desc&filter[esrb][exists]=true&limit=20`,
     {
       headers: {
@@ -65,6 +67,21 @@ const searchGames = async (search) => {
 
   return await result.json();
 };
+
+const getGameById = async (id) => {
+  const result = await fetch(
+    `https://api-endpoint.igdb.com/games/${id}` +
+    `?fields=name,first_release_date,cover,esrb,summary`,
+    {
+      headers: {
+        "user-key": config.apiKey,
+        Accept: "application/json"
+      }
+    }
+  );
+
+  return await result.json();
+}
 
 const app = new Koa();
 
@@ -111,6 +128,16 @@ router.get('/games/search', async ctx => {
   const results = await searchGames(query);
 
   ctx.body = results.map(a => replaceImages(a));
+});
+
+router.post('/games/add', async ctx => {
+  const { id } = ctx.request.body;
+
+  const [game] = await getGameById(id);
+
+  ctx.session.games = [...ctx.session.games, game];
+
+  ctx.body = game;
 });
 
 app.use(router.allowedMethods());

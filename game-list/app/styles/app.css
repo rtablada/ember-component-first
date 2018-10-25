@@ -97,6 +97,7 @@ body {
 }
 
 .game-tile-large span {
+  margin-left: 0.5rem;
   font-weight: normal;
   color: #333;
 }
@@ -112,10 +113,6 @@ body {
   margin: 1rem;
 }
 
-.game-tile-large p {
-
-}
-
 .search-bar {
   display: flex;
   align-items: center;
@@ -126,11 +123,21 @@ body {
 }
 
 .search-bar input {
+  padding: 0.2rem 1rem;
+
   font-size: 1.4rem;
   border-radius: 0.4rem;
   border: none;
-  padding: 0.2rem 1rem;
   flex-grow: 1;
+}
+
+.search-bar button {
+  padding: 0.2rem 1rem;
+
+  font-size: 1.4rem;
+  background: #8be;
+  border: none;
+  border-radius: 0.4rem;
 }
 
 .search-results {
