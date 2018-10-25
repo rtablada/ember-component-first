@@ -1,11 +1,11 @@
 import Component from '@ember/component';
-
-const timeout = (t) => new Promise((r) => window.setTimeout(r, t));
+import { service } from '@ember-decorators/service';
 
 export default class extends Component {
+  @service('games-store') gamesStore;
+
   constructor() {
     super(...arguments);
-    this.set('games', []);
 
     this.loadData();
   }
@@ -13,12 +13,8 @@ export default class extends Component {
   async loadData() {
     this.set('loading', true);
 
-    const req = await fetch('http://localhost:3000/games', {
-      credentials: 'include'
-    });
-    const games = await req.json();
+    await this.gamesStore.loadData();
 
     this.set('loading', false);
-    this.set('games', games);
   }
 }

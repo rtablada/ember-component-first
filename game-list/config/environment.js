@@ -2,6 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
+    host: 'http://localhost:3000',
     modulePrefix: 'game-list',
     environment,
     rootURL: '/',
@@ -44,6 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.host = 'https://game-list-api.herokuapp.com';
     // here you can enable a production-specific feature
   }
 
