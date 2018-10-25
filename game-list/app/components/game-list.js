@@ -13,18 +13,12 @@ export default class extends Component {
   async loadData() {
     this.set('loading', true);
 
-    const req = await fetch('http://localhost:3000/games', {
+    const req = await fetch('https://game-list-api.herokuapp.com/games', {
       credentials: 'include'
     });
     const games = await req.json();
 
     this.set('loading', false);
-    this.set('games', games.map(g => ({
-      title: g.name,
-      rating: g.esrb.rating,
-      imageUrl: g.cover.url,
-      description: g.summary,
-      id: g.id
-    })));
+    this.set('games', games);
   }
 }

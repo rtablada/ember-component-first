@@ -3,10 +3,10 @@
 {{else}}
   {{#each this.games as |game|}}
     <GameTile
-      @title={{game.title}}
-      @year={{game.year}}
-      @imageUrl={{game.imageUrl}}
-      @description={{game.description}}
+      @title={{game.name}}
+      @timestamp={{game.first_release_date}}
+      @imageUrl={{game.cover.url}}
+      @description={{game.summary}}
     />
   {{/each}}
 

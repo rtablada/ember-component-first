@@ -471,3 +471,88 @@ In our template, we can use the `if` helper and `else` helper to check the value
 Now we have our loading state, let's load some real data from a server!
 
 # Loading Data with Fetch
+
+For this demo there is an API server that will return a list of games for the demo as well as the more advanced version of this tutorial.
+
+The url for this is: `https://game-list-api.herokuapp.com/games`
+
+Now to grab this data, we will need to update our `loadData` function to fetch data from this API.
+To do this, we'll use the browser's built-in `fetch` function:
+
+```js
+async loadData() {
+  this.set('loading', true);
+
+  const req = await fetch('https://game-list-api.herokuapp.com/games', {
+    credentials: 'include'
+  });
+  const games = await req.json();
+
+  this.set('loading', false);
+  this.set('games', games);
+}
+```
+
+Now it looks like we have no data loading, but let's checkout the network tab.
+Here we can see that the data is loading a bit differently than we expected.
+Instead of the `game.title` we're getting a `name` property and there are a few other changes.
+We could use a map function in `loadData` to normalize our data, but instead let's update the `GameList` component template to pass in the right values into `GameTile`:
+
+```hbs
+<GameTile
+  @title={{game.name}}
+  @year={{game.first_release_date}}
+  @imageUrl={{game.cover.url}}
+  @description={{game.summary}}
+/>
+```
+
+Alright now our games list is grabbing data from our API!
+There is one final issue that we have in our app.
+The year is now showing a millisecond time stamp instead of the actual release year.
+So we'll need to format this into the actual year value.
+
+## Creating a Handlebars Helper
+
+In Ember templates, we can't write regular JavaScript expressions.
+Instead if we want to pass variables into functions we have to create Handlebars helpers.
+These are just functions to be executed in a template, no magic, no special sauce.
+
+To create a helper we need to go to the `app/helpers` folder and create a js file.
+We'll name our helper `timestamp-to-year.js`.
+
+In this helper file we need to import helper from `@ember/component/helper`.
+This `helper` function defines a new Handlebars helper by taking a single argument: a callback to run when the helper is used in a template.
+So, let's export a new helper from this module.
+
+```js
+import { helper } from '@ember/component/helper';
+
+export default helper(() => {
+
+});
+```
+
+Next, we need to define the logic of this function, to our callback we'll get two arguments, an array of ordered arguments and an object of named arguments.
+We'll only work with a single value for the timestamp, so we can destructure the timestamp from the array of arguments.
+Then to turn this timestamp into a year we need to create a new `Date` and then call `getFullYear`
+
+```js
+([timestamp]) => {
+  const date = new Date(timestamp);
+
+  return date.getFullYear();
+}
+```
+
+Then we can use this new helper by calling `{{timestamp-to-year @year}}` in the `GameTile` component:
+
+```hbs
+<h1>{{@title}} <span>{{timestamp-to-year @year}}</span></h1>
+```
+
+For clarity, let's clean things up by renaming the `@year` attribute to `@timestamp` in our `GameTile` and we'll also need to update the `GameList` template too.
+
+Now, we have a game list loading in data from an API, transforming timestamps into years and displaying all of our data to the end user.
+
+In the full post you'll learn how to add a search bar to look for games and a feature to add and remove games from the list.
