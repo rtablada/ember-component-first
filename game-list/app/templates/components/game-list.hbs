@@ -1,13 +1,17 @@
 {{#if this.loading}}
   <h2 style="animation: spin 4s infinite linear; display: inline-block;">Loading</h2>
 {{else}}
-  {{#each this.games as |game|}}
-    <GameTile
-      @title={{game.name}}
-      @timestamp={{game.first_release_date}}
-      @imageUrl={{game.cover.url}}
-      @description={{game.summary}}
-    />
-  {{/each}}
-
+  <div class="grid">
+    {{#each this.games as |game|}}
+      <div class="grid__item grid__item--1-3">
+        <GameTile
+          class="game-tile-large"
+          @title={{game.name}}
+          @timestamp={{game.first_release_date}}
+          @imageUrl={{game.cover.url}}
+          @description={{game.summary}}
+        />
+      </div>
+    {{/each}}
+  </div>
 {{/if}}

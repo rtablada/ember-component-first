@@ -2,3 +2,116 @@
   from {transform:rotate(0deg);}
   to {transform:rotate(360deg);}
 }
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #e3e3e3;
+  color: #111;
+}
+
+.app {
+  height: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.app__nav {
+
+}
+
+.app__content {
+  flex-grow: 1;
+}
+
+.app__footer, .app__nav {
+  background: #111;
+  color: #eee;
+}
+
+.app__footer {
+  margin-top: 2rem;
+}
+
+
+.app__footer a, .app__nav a {
+  font-weight: bold;
+  color: #8be;
+}
+
+.section {
+  padding: 1rem;
+}
+
+.container {
+  max-width: 70rem;
+  margin: auto;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: -1rem;
+}
+
+.grid__item {
+  margin: 1rem;
+  flex-basis: calc(100% - 2rem);
+}
+
+.grid__item--1-2 {
+  flex-basis: calc(100% / 2 - 2rem);
+}
+
+.grid__item--1-3 {
+  flex-basis: calc(100% / 3 - 2rem);
+}
+
+.grid__item--1-4 {
+  flex-basis: calc(100% / 2 - 2rem);
+}
+
+.game-tile-large {
+  background: white;
+  box-shadow: 0.2rem 0.3rem 0.4rem rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.game-tile-large h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+}
+
+.game-tile-large span {
+  font-weight: normal;
+  color: #333;
+}
+
+.game-tile-large img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  background: #cce;
+}
+
+.game-tile-large p {
+  margin: 1rem;
+}
+
+.game-tile-large p {
+
+}
