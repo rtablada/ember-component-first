@@ -8,12 +8,11 @@ class GameList extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      games: [],
       isLoading: false
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadData();
   }
 

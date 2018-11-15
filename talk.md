@@ -24,7 +24,7 @@ This addon is maintained by core-team members and is used as a directional tool 
 To recreate the exact Ember project that I am starting with run the following commands:
 
 ```
-yarn global install -g ember-cli@latest
+yarn global add ember-cli@latest
 ember new game-list --no-welcome --yarn
 cd game-list
 ember install ember-decorators

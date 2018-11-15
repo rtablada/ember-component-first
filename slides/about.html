@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ember: Understanding Components First</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
+  <style>
+    .grid-2 {
+      width: calc(100% / 2 - 2rem);
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <header class="bg-blue-darkest text-white p-4">
+    <nav class="container mx-auto">
+      <ul class="list-reset flex -m-2">
+        <li><a class="text-grey-lightest no-underline m-2" href="/">Intro</a></li>
+        <li><a class="text-orange no-underline m-2" href="/about.html">About Me</a></li>
+        <li><a class="text-grey-lightest no-underline m-2" href="https://www.embercasts.com">Embercasts</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="flex flex-col justify-center content-center flex-1 bg-blue-lightest">
+    <div class="container mx-auto text-grey-darkest">
+      <div class="flex -m-2">
+        <div class="m-2 grid-2">
+          <h2 class="text-5xl">Ryan Tablada</h2>
+          <ul>
+            <li class="text-4xl">JavaScript</li>
+            <li class="text-4xl">Ember.js</li>
+            <li class="text-4xl">Vue</li>
+            <li class="text-4xl">React</li>
+            <li class="text-4xl">C#</li>
+            <li class="text-4xl">Much Much More</li>
+          </ul>
+        </div>
+        <div class="m-2 grid-2">
+          <h2 class="text-4xl">Twitter: @ryantablada</h2>
+          <h2 class="text-4xl">Github: @rtablada</h2>
+          <div>
+            <img class="w-full" src="https://pbs.twimg.com/media/DntR1C9UUAEWM8C.jpg:large" alt="A very good doggo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -7,7 +7,7 @@ export class Container extends Component {
     super(...arguments);
 
     this.state = {
-      games: null
+      games: []
     };
   }
 
