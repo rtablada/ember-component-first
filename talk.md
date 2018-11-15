@@ -201,7 +201,7 @@ Instead, let's look at how we can work with JavaScript to get data into our comp
 
 ## Creating a List Component
 
-To start, let's copty the `GameTile` components from `application.hbs` and let's replace them with a new `GameList` component.
+To start, let's copy the `GameTile` components from `application.hbs` and let's replace them with a new `GameList` component.
 
 ```hbs
 <GameList />
